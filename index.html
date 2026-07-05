@@ -4,57 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ремонт квартир и офисов</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #f5f5f5; }
-        .hero {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: white;
-            text-align: center;
-            padding: 80px 20px;
-        }
-        .hero h1 { font-size: 48px; margin-bottom: 20px; }
-        .hero p { font-size: 20px; opacity: 0.8; max-width: 600px; margin: 0 auto 30px; }
-        .btn {
-            background: #e94560;
-            color: white;
-            padding: 16px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: 0.3s;
-        }
-        .btn:hover { background: #c73652; transform: scale(1.05); }
-        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
-        .section-title { text-align: center; font-size: 32px; margin-bottom: 40px; color: #1a1a2e; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: 0.3s;
-        }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(0,0,0,0.15); }
-        .card .icon { font-size: 48px; margin-bottom: 16px; }
-        .card img { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; margin-bottom: 16px; border: 3px solid #e94560; }
-        .card h3 { margin-bottom: 12px; color: #1a1a2e; }
-        .card p { color: #666; line-height: 1.6; }
-        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .price-item { background: white; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
-        .price-item .cost { font-size: 28px; color: #e94560; font-weight: bold; }
-        .footer { background: #1a1a2e; color: white; text-align: center; padding: 40px 20px; margin-top: 40px; }
-        .footer a { color: #e94560; text-decoration: none; }
-        @media (max-width: 600px) { .hero h1 { font-size: 30px; } }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -77,12 +27,12 @@
 
     <div class="container" id="contact">
         <h2 class="section-title">📩 Оставьте заявку</h2>
-        <div style="max-width: 500px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.06);">
+        <div class="form-box">
             <form>
-                <input type="text" placeholder="Ваше имя" style="width:100%; padding:14px; border:1px solid #ddd; border-radius:10px; margin-bottom:14px; font-size:16px;" />
-                <input type="tel" placeholder="Телефон" style="width:100%; padding:14px; border:1px solid #ddd; border-radius:10px; margin-bottom:14px; font-size:16px;" />
-                <textarea placeholder="Опишите задачу" rows="3" style="width:100%; padding:14px; border:1px solid #ddd; border-radius:10px; margin-bottom:14px; font-size:16px;"></textarea>
-                <button type="submit" class="btn" style="width:100%;">Отправить заявку</button>
+                <input type="text" placeholder="Ваше имя" />
+                <input type="tel" placeholder="Телефон" />
+                <textarea placeholder="Опишите задачу" rows="3"></textarea>
+                <button type="submit" class="btn">Отправить заявку</button>
             </form>
             <p style="text-align:center; margin-top:16px; color:#888;">Или звоните: <strong style="color:#1a1a2e;" id="phoneDisplay">+7 (999) 123-45-67</strong></p>
         </div>
@@ -94,68 +44,6 @@
     </div>
 </div>
 
-<script>
-    const STORAGE_KEY = 'remont_site_data';
-
-    const defaultServices = [
-        { icon: '🏠', title: 'Косметический ремонт', desc: 'Обои, покраска, стяжка пола, замена розеток — быстро и аккуратно.', image: '' },
-        { icon: '🏢', title: 'Капитальный ремонт', desc: 'Полная перепланировка, электрика, сантехника, отделка под ключ.', image: '' },
-        { icon: '🏗️', title: 'Офисные помещения', desc: 'Ремонт коммерческих площадей с учётом всех норм и сроков.', image: '' },
-        { icon: '🎨', title: 'Дизайн-проект', desc: 'Разработаем стильный интерьер под ваш бюджет и вкус.', image: '' }
-    ];
-
-    const defaultPrices = [
-        { title: 'Косметический', cost: 'от 4 500 ₽/м²', desc: 'Обои + пол + потолок' },
-        { title: 'Капитальный', cost: 'от 9 000 ₽/м²', desc: 'Под ключ с материалами' },
-        { title: 'Офис', cost: 'договорная', desc: 'Зависит от объёма' }
-    ];
-
-    function getData() {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        return saved ? JSON.parse(saved) : null;
-    }
-
-    function loadSite() {
-        const data = getData();
-        const services = data?.services || defaultServices;
-        const prices = data?.prices || defaultPrices;
-
-        document.getElementById('heroTitle').textContent = data?.heroTitle || 'Ремонт квартир и офисов';
-        document.getElementById('heroDesc').textContent = data?.heroDesc || 'Профессиональный подход, прозрачная смета и гарантия качества. Работаем в Москве и области.';
-        document.getElementById('heroBtn').textContent = data?.heroBtn || 'Получить бесплатную смету';
-        document.getElementById('phoneDisplay').textContent = data?.phone || '+7 (999) 123-45-67';
-        document.getElementById('footerName').textContent = data?.footerName || 'Ремонт-Про';
-
-        const grid = document.getElementById('servicesGrid');
-        grid.innerHTML = '';
-        services.forEach(s => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            const imgHtml = s.image ? `<img src="${s.image}" alt="${s.title}" />` : `<div class="icon">${s.icon || '🔧'}</div>`;
-            card.innerHTML = `
-                ${imgHtml}
-                <h3>${s.title || 'Услуга'}</h3>
-                <p>${s.desc || ''}</p>
-            `;
-            grid.appendChild(card);
-        });
-
-        const priceGrid = document.getElementById('pricesGrid');
-        priceGrid.innerHTML = '';
-        prices.forEach(p => {
-            const item = document.createElement('div');
-            item.className = 'price-item';
-            item.innerHTML = `
-                <h4>${p.title || 'Услуга'}</h4>
-                <p class="cost">${p.cost || '0 ₽'}</p>
-                <p>${p.desc || ''}</p>
-            `;
-            priceGrid.appendChild(item);
-        });
-    }
-
-    loadSite();
-</script>
-
+<script src="main.js"></script>
 </body>
 </html>
