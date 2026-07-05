@@ -1,0 +1,174 @@
+/* ===== ОБЩИЕ СТИЛИ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+}
+
+/* ===== ШАПКА (HERO) ===== */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+.btn {
+    background: #e94560;
+    color: white;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #c73652;
+    transform: scale(1.05);
+}
+
+/* ===== КОНТЕЙНЕРЫ ===== */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #1a1a2e;
+}
+
+/* ===== СЕТКА УСЛУГ ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.card .icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    border: 3px solid #e94560;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    color: #1a1a2e;
+}
+
+.card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ===== ЦЕНЫ ===== */
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.price-item {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.price-item .cost {
+    font-size: 28px;
+    color: #e94560;
+    font-weight: bold;
+}
+
+/* ===== ФОРМА ===== */
+.form-box {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.form-box input,
+.form-box textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    font-size: 16px;
+}
+
+.form-box .btn {
+    width: 100%;
+}
+
+/* ===== ПОДВАЛ ===== */
+.footer {
+    background: #1a1a2e;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 40px;
+}
+
+.footer a {
+    color: #e94560;
+    text-decoration: none;
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 30px;
+    }
+}
